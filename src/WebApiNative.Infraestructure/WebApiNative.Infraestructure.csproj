@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\WebApiNative.Domain\WebApiNative.Domain.csproj" />
+    <ProjectReference Include="..\WebApiNative.Domain\WebApiNative.Domain.csproj" />
   </ItemGroup>
 
 </Project>
