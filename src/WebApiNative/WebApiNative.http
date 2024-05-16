@@ -1,0 +1,6 @@
+@WebApiNative_HostAddress = http://localhost:5023
+
+GET {{WebApiNative_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
