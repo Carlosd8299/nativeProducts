@@ -9,7 +9,7 @@ namespace WebApiNative.Infraestructure.DataAccess
         public static IServiceCollection AddContextExtension(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<NativeDBContext>(options =>
-                           options.UseSqlServer("Server=CARCARLOSDELAC\\SQLEXPRESS;Database=productos;Trusted_Connection=True;Trust Server Certificate=True;"));
+                           options.UseSqlServer("Server=tcp:carlosdlctest.database.windows.net,1433;Initial Catalog=bdnative;Persist Security Info=False;User ID=carlosdlc;Password=Thepower1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
 
             return services;
         }
