@@ -4,6 +4,7 @@ namespace WebApiNative.Domain.Interfaces
 {
     public interface IProductsRepository
     {
+        public Task<Producto> ObtenerProducto(Guid id);
         public Task<List<Producto>> ObtenerTodosProductos();
         public Task<List<Producto>> ObtenerProductosPorNombre(string nombre);
         public Task<List<Producto>> ObtenerProductosPorPrecios(double precioInicia, double precioFinal);

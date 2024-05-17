@@ -13,38 +13,107 @@ namespace WebApiNative.Infraestructure.Repositories
             this.context = context;
         }
 
-        public Task<Producto> ActualizarProducto(Producto producto)
+        public async Task<Producto> ActualizarProducto(Producto producto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = this.context.Productos.Update(producto);
+                await context.SaveChangesAsync();
+                return producto;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public Task<bool> EliminarProducto(Guid id)
+        public async Task<bool> EliminarProducto(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await this.context.Productos.Where(r => r.Id == id).FirstOrDefaultAsync();
+
+                if (response is not null)
+                {
+                    response.SetEstado(false);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public Task<Producto> GuardarProducto(Producto producto)
+        public async Task<Producto> GuardarProducto(Producto producto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await this.context.Productos.AddAsync(producto);
+                await context.SaveChangesAsync();
+                return producto;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<Producto> ObtenerProducto(Guid id)
+        {
+
+            try
+            {
+                return await this.context.Productos.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public Task<List<Producto>> ObtenerProductosPorNombre(string nombre)
         {
-            using (context)
+            try
             {
-                var response = this.context.Productos.Where(product => product.Nombre == nombre);
+                var response = this.context.Productos.Where(product => product.Nombre.Equals(nombre) && product.Estado);
                 return response.ToListAsync();
             }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
         }
 
         public Task<List<Producto>> ObtenerProductosPorPrecios(double precioInicia, double precioFinal)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = this.context.Productos.Where(product => (product.Precio >= precioInicia && product.Precio <= precioFinal) && product.Estado);
+                return response.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public Task<List<Producto>> ObtenerTodosProductos()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return this.context.Productos.Where(product => product.Estado).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
