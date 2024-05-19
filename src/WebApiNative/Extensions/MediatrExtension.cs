@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace WebApiNative
+namespace WebApiNative.Extensions
 {
     public static class MediatrExtension
     {
