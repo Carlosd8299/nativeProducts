@@ -16,16 +16,11 @@ namespace WebApiNative
 
         }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.ApplyConfiguration(new ProductoSeed());
-            //modelBuilder.ApplyConfiguration(new AuthSeed());
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }
