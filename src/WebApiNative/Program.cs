@@ -35,7 +35,7 @@ builder.Services.AddJwtExtension(builder.Configuration);
 
 var app = builder.Build();
 
-app.UseMiddleware<HandlerErrorMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseAuthentication();
 
@@ -48,7 +48,5 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.MapControllers();
-
-app.MapIdentityApi<User>();
 
 app.Run();
