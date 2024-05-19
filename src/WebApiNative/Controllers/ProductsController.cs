@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApiNative.Domain.Entities;
 using WebApiNative.Handlers.Commands.Createproduct;
@@ -9,8 +10,9 @@ using WebApiNative.Handlers.Queries.GetProductsHandler;
 
 namespace WebApiNative.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
         private IMediator _mediator;
@@ -20,6 +22,7 @@ namespace WebApiNative.Controllers
             _mediator = mediator;
         }
 
+        [AllowAnonymous]
         [HttpGet("Searchproducts")]
         /// <summary>
         /// Permite consultar los productos por nombre o por rango de precios
@@ -39,6 +42,7 @@ namespace WebApiNative.Controllers
             return StatusCode(StatusCodes.Status404NotFound);
         }
 
+        [AllowAnonymous]
         [HttpGet()]
         /// <summary>
         /// Permite consultar todos los productos

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApiNative.Domain.Entities;
 using WebApiNative.Domain.Interfaces;
+using WebApiNative.Infraestructure.Exceptions;
 
 namespace WebApiNative.Infraestructure.Repositories
 {
@@ -41,7 +42,7 @@ namespace WebApiNative.Infraestructure.Repositories
                 }
                 else
                 {
-                    return false;
+                    throw new NotFoundException("No se encontro el producto a eliminar");
                 }
             }
             catch (Exception ex)
@@ -60,7 +61,7 @@ namespace WebApiNative.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                return null;
+                throw new InfraestructureException("No se pudo guardar el producto");
             }
         }
 
@@ -73,7 +74,7 @@ namespace WebApiNative.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                return null;
+                throw new NotFoundException("No se encontro el producto");
             }
         }
 
@@ -86,7 +87,7 @@ namespace WebApiNative.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                return null;
+                throw new NotFoundException("No se encontro el producto");
             }
 
         }
@@ -100,7 +101,7 @@ namespace WebApiNative.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                return null;
+                throw new NotFoundException("No se encontro el producto");
             }
         }
 
@@ -112,7 +113,7 @@ namespace WebApiNative.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                return null;
+                throw new NotFoundException("No se encontro el producto");
             }
         }
     }
