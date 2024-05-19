@@ -42,29 +42,27 @@ namespace WebApiNative.Infraestructure.Repositories
 
         public async Task<IdentityUser> RegisterUser(string username, string password, string email, string rol)
         {
+
+            if (!await _roleManager.RoleExistsAsync(rol))
+                throw new BadRequestException($"Rol {rol} no existe");
+
+            if (await _userManager.FindByNameAsync(username) is not null)
+                throw new ConflictException($"Username {username} ya existe");
+
             var user = new IdentityUser { UserName = username, Email = email };
             var result = await _userManager.CreateAsync(user, password);
 
             if (result.Errors.Any())
-                throw new InfraestructureException("No fue posible guardar el usuario");
+                throw new InfraestructureException($"No fue posible guardar el usuario. {result.Errors.Select(x => x.Description)} ");
 
             if (result.Succeeded)
             {
                 await _userManager.AddClaimAsync(user, new Claim("UserClaim", "UserValue"));
-
-                if (await _roleManager.RoleExistsAsync(rol))
-                {
-                    var role = new IdentityRole(rol);
-                    // Asignar rol al usuario
-                    await _userManager.AddToRoleAsync(user, rol);
-                }
-                else
-                {
-                    throw new BadRequestException("El rol enviado no existe");
-                }
+                var role = new IdentityRole(rol);
+                // Asignar rol al usuario
+                await _userManager.AddToRoleAsync(user, rol);
             }
             return user;
-
         }
         public async Task<bool> RegisterRol(string rol)
         {
